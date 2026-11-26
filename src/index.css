@@ -140,6 +140,21 @@
 }
 .btn-s:hover { border-color:#8b5cf6;color:#fff;box-shadow:0 0 20px rgba(139,92,246,.25); }
 
+/* About */
+.about-grid { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:4rem; align-items:center; }
+.about-bio { color:#cbd5e1; font-size:1.05rem; line-height:1.8; font-weight:300; max-width:560px; }
+.about-areas { display:flex; flex-wrap:wrap; gap:.45rem; list-style:none; margin:1.5rem 0 0; padding:0; }
+.about-cv { display:inline-block; margin-top:2rem; text-decoration:none; }
+.about-facts { display:flex; flex-direction:column; gap:1rem; }
+.about-fact { background:#13131a; border:1px solid #1e1e2a; border-radius:12px; padding:1.5rem; text-align:center; }
+.about-fact-label { font-size:.75rem; color:var(--txt-dim); margin-top:.25rem; letter-spacing:.04em; }
+.about-status {
+  display:flex; align-items:center; justify-content:center; gap:.75rem; padding:1rem 1.25rem;
+  border:1px solid rgba(34,211,238,.2); border-radius:12px; background:rgba(34,211,238,.04);
+  font-family:'Syne',sans-serif; font-weight:600; font-size:.85rem; color:#22d3ee;
+}
+.about-status span { width:10px; height:10px; border-radius:50%; background:#22d3ee; flex-shrink:0; }
+
 /* Projects */
 .proj-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
 .proj-card {
@@ -170,7 +185,7 @@
 .gh-cta:hover { border-color:#8b5cf6; color:#a78bfa; box-shadow:0 0 20px rgba(139,92,246,.25); }
 
 /* Skills */
-.skills-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.5rem; }
+.skills-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
 .skills-note { margin-top:2rem; font-size:.8rem; color:var(--txt-dim); text-align:center; }
 .skill-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.85rem; }
 .skill-row { display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
@@ -279,8 +294,10 @@
 @media (max-width: 1023px) {
   .hero-grid { grid-template-columns:minmax(0,1fr); gap:3.5rem; padding-top:3rem; }
   .hero-scroll-hint { display:none; }
-  .skills-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .contact-grid { grid-template-columns:minmax(0,1fr); gap:3rem; }
+  .about-grid { grid-template-columns:minmax(0,1fr); gap:2.5rem; }
+  .nav-badge { display:none; }
+  .nav-links { gap:1.5rem; }
 }
 
 /* Responsive: mobile grande (<768px) */

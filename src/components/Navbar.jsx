@@ -3,6 +3,7 @@ import { scrollToId } from '../utils/scroll'
 
 const links = [
   { label: 'Inicio',    href: 'inicio'    },
+  { label: 'Sobre mí',  href: 'sobre-mi'  },
   { label: 'Proyectos', href: 'proyectos' },
   { label: 'Skills',    href: 'skills'    },
   { label: 'Contacto',  href: 'contacto'  },
