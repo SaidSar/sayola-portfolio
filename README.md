@@ -2,6 +2,8 @@
 
 Portafolio personal de desarrollador: estilo minimalista y gamer, fondo oscuro con acentos neón. Sitio en español, de una sola página.
 
+En producción: https://sayola-portfolio.vercel.app
+
 ## Stack
 
 - **React 18** + **Vite 5**
@@ -38,7 +40,7 @@ Los datos de contacto viven en `src/config/site.js`. Los valores marcados con `P
 | `FORMSPREE_ID` | ID del formulario de Formspree | El formulario queda deshabilitado con un aviso |
 | `CV_URL` | Ruta del CV, p. ej. `/cv.pdf` en `public/` | No se muestra el botón "Descargar CV" |
 
-En `index.html`, la URL canónica y `og:url` están comentadas como `PLACEHOLDER` hasta tener el dominio final.
+En `index.html`, `canonical`, `og:url`, `og:image` y `twitter:image` usan el dominio de producción (https://sayola-portfolio.vercel.app). Si cambias de dominio, actualízalos.
 
 Los proyectos se editan en el arreglo `PROJECTS` de `src/components/Projects.jsx`. Si un proyecto tiene `repo` (`usuario/repositorio`), la tarjeta muestra estrellas y fecha de la última actualización.
 
