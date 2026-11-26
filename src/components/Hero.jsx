@@ -8,7 +8,7 @@ const TECH = ['React', 'React Native', 'Azure', 'Godot Engine', 'Microsoft.NET',
 const SOCIALS = [
   { label: 'GitHub',   href: GITHUB_URL,   Icon: GitHubIcon },
   { label: 'LinkedIn', href: LINKEDIN_URL, Icon: LinkedInIcon },
-]
+].filter(s => s.href)
 
 const S = {
   orb1: { position:'absolute', top:'22%', right:'22%', width:'min(380px, 90vw)', height:'min(380px, 90vw)', borderRadius:'50%', background:'rgba(139,92,246,.08)', filter:'blur(120px)', pointerEvents:'none' },

@@ -8,7 +8,12 @@ const LINKS = [
   { label: 'Email',    val: EMAIL,                    href: `mailto:${EMAIL}`, icon: <MailIcon size={18} /> },
   { label: 'GitHub',   val: displayUrl(GITHUB_URL),   href: GITHUB_URL,        icon: <GitHubIcon size={18} /> },
   { label: 'LinkedIn', val: displayUrl(LINKEDIN_URL), href: LINKEDIN_URL,      icon: <LinkedInIcon size={18} /> },
-]
+].filter(l => l.val)
+
+const ALT_CHANNELS = [EMAIL && 'email', LINKEDIN_URL && 'LinkedIn'].filter(Boolean)
+const FORM_NOTICE = ALT_CHANNELS.length
+  ? `El formulario todavía no está configurado. Mientras tanto, escríbeme por ${ALT_CHANNELS.join(' o ')}.`
+  : 'El formulario todavía no está configurado. Mientras tanto, puedes encontrarme en GitHub.'
 
 const EMPTY_FORM = { name:'', email:'', msg:'' }
 
@@ -49,7 +54,7 @@ export default function Contact() {
         setSent(true)
         setForm(EMPTY_FORM)
       } else {
-        setError('Hubo un error. Intenta de nuevo o escríbeme directo al email.')
+        setError(EMAIL ? 'Hubo un error. Intenta de nuevo o escríbeme directo al email.' : 'Hubo un error. Intenta de nuevo.')
       }
     } catch {
       setError('Sin conexión. Intenta de nuevo.')
@@ -106,7 +111,7 @@ export default function Contact() {
                 </div>
                 {!FORM_READY && (
                   <p className="form-notice" role="status">
-                    El formulario todavía no está configurado. Mientras tanto, escríbeme directo por email o LinkedIn.
+                    {FORM_NOTICE}
                   </p>
                 )}
                 {error && <p role="alert" className="form-error">{error}</p>}

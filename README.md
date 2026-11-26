@@ -29,13 +29,16 @@ npm run preview   # sirve dist/ en local
 
 ## Configuración
 
-Los datos de contacto viven en `src/config/site.js`. Los valores marcados con `PLACEHOLDER` se llenan a mano:
+Los datos de contacto viven en `src/config/site.js`. Los valores marcados con `PLACEHOLDER` se llenan a mano; mientras estén vacíos, lo que depende de ellos no se muestra:
 
-| Constante | Uso |
-|---|---|
-| `EMAIL` | Correo de contacto |
-| `LINKEDIN_URL` | Perfil de LinkedIn (Hero y Contacto) |
-| `FORMSPREE_ID` | ID del formulario de Formspree; mientras sea `YOUR_FORM_ID` el formulario queda deshabilitado con un aviso |
+| Constante | Uso | Si está vacía |
+|---|---|---|
+| `EMAIL` | Correo de contacto | Se oculta la fila de Email en Contacto |
+| `LINKEDIN_URL` | Perfil de LinkedIn | Se ocultan el icono del Hero y la fila de LinkedIn |
+| `FORMSPREE_ID` | ID del formulario de Formspree | El formulario queda deshabilitado con un aviso |
+| `CV_URL` | Ruta del CV, p. ej. `/cv.pdf` en `public/` | No se muestra el botón "Descargar CV" |
+
+En `index.html`, la URL canónica y `og:url` están comentadas como `PLACEHOLDER` hasta tener el dominio final.
 
 Los proyectos se editan en el arreglo `PROJECTS` de `src/components/Projects.jsx`. Si un proyecto tiene `repo` (`usuario/repositorio`), la tarjeta muestra estrellas y fecha de la última actualización.
 
