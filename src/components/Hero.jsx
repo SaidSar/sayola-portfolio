@@ -10,8 +10,8 @@ const SOCIALS = [
 ]
 
 const S = {
-  orb1: { position:'absolute', top:'22%', right:'22%', width:380, height:380, borderRadius:'50%', background:'rgba(139,92,246,.08)', filter:'blur(120px)', pointerEvents:'none' },
-  orb2: { position:'absolute', bottom:'20%', left:'15%', width:320, height:320, borderRadius:'50%', background:'rgba(34,211,238,.05)', filter:'blur(100px)', pointerEvents:'none' },
+  orb1: { position:'absolute', top:'22%', right:'22%', width:'min(380px, 90vw)', height:'min(380px, 90vw)', borderRadius:'50%', background:'rgba(139,92,246,.08)', filter:'blur(120px)', pointerEvents:'none' },
+  orb2: { position:'absolute', bottom:'20%', left:'15%', width:'min(320px, 80vw)', height:'min(320px, 80vw)', borderRadius:'50%', background:'rgba(34,211,238,.05)', filter:'blur(100px)', pointerEvents:'none' },
   scanLine: { position:'absolute', left:0, right:0, height:60, background:'linear-gradient(to bottom,transparent,rgba(34,211,238,.08),transparent)', pointerEvents:'none', zIndex:2 },
   statusBadge: { position:'absolute', top:14, left:14, zIndex:3, display:'flex', alignItems:'center', gap:'.5rem', background:'rgba(7,7,9,.8)', backdropFilter:'blur(8px)', border:'1px solid #1e1e2a', padding:'.35rem .9rem', borderRadius:999 },
   statusDot: { width:8, height:8, borderRadius:'50%', background:'#22d3ee', flexShrink:0 },
@@ -113,7 +113,7 @@ export default function Hero() {
             {TECH.map(t => <span key={t} className="pill">{t}</span>)}
           </div>
 
-          <div className="fade-up d6" style={S.ctas}>
+          <div className="fade-up d6 hero-ctas" style={S.ctas}>
             <button className="btn-p" onClick={() => scrollToId('proyectos')}>Ver proyectos</button>
             <button className="btn-s" onClick={() => scrollToId('contacto')}>Contáctame</button>
           </div>

@@ -97,7 +97,7 @@ export default function Skills() {
         <div ref={statsRef} className="stats-grid">
           {STATS.map((s, i) => (
             <div key={s.label} className={`reveal${statsVisible ? ' in' : ''}`} style={{ textAlign:'center', transitionDelay:`${i * 100}ms` }}>
-              <div className="grad-text" style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'2.5rem' }}>{s.num}</div>
+              <div className="grad-text stat-num">{s.num}</div>
               <div style={{ fontSize:'.7rem', color:'#475569', marginTop:'.25rem', letterSpacing:'.04em' }}>{s.label}</div>
             </div>
           ))}
