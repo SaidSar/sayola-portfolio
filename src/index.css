@@ -124,11 +124,6 @@
 .bk-bl { position:absolute;bottom:-10px;left:-10px;  width:28px;height:28px;border-bottom:2px solid #22d3ee;border-left:2px solid #22d3ee;border-radius:0 0 0 3px; }
 .bk-br { position:absolute;bottom:-10px;right:-10px; width:28px;height:28px;border-bottom:2px solid #8b5cf6;border-right:2px solid #8b5cf6;border-radius:0 0 3px 0; }
 
-/* Bar */
-.bar-track { height:1px;background:#1e1e2a;border-radius:999px;overflow:hidden; }
-.bar-fill  { height:100%;border-radius:999px;width:0;background:linear-gradient(90deg,#8b5cf6,#22d3ee);box-shadow:0 0 8px rgba(139,92,246,.5);animation:barW 1.2s ease forwards; }
-.bar-fill.c{ background:linear-gradient(90deg,#22d3ee,#8b5cf6);box-shadow:0 0 8px rgba(34,211,238,.5); }
-
 /* Buttons */
 .btn-p {
   padding:.85rem 2rem;border-radius:6px;border:none;cursor:pointer;
@@ -175,8 +170,23 @@
 .gh-cta:hover { border-color:#8b5cf6; color:#a78bfa; box-shadow:0 0 20px rgba(139,92,246,.25); }
 
 /* Skills */
-.skills-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.5rem; margin-bottom:4rem; }
-.stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.5rem; }
+.skills-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.5rem; }
+.skills-note { margin-top:2rem; font-size:.8rem; color:var(--txt-dim); text-align:center; }
+.skill-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.85rem; }
+.skill-row { display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
+.skill-name { font-size:.8rem; color:#94a3b8; }
+.skill-level {
+  display:inline-flex; align-items:center; gap:.45rem; flex-shrink:0;
+  font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.05em; color:var(--txt-dim);
+}
+.skill-level.lvl-intermedio { color:#cbd5e1; }
+.skill-level.lvl-avanzado { color:#a78bfa; }
+.skill-level.c.lvl-avanzado { color:#22d3ee; }
+.skill-dots { display:inline-flex; gap:3px; }
+.skill-dot { width:6px; height:6px; border-radius:50%; background:#1e1e2a; border:1px solid #2a2a3a; }
+.skill-dot.on { background:#8b5cf6; border-color:#8b5cf6; box-shadow:0 0 6px rgba(139,92,246,.7); }
+.skill-level.c .skill-dot.on { background:#22d3ee; border-color:#22d3ee; box-shadow:0 0 6px rgba(34,211,238,.7); }
+.stats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
 .stat-num { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2rem, 4.5vw, 2.5rem); }
 .skill-card { background:#13131a;border:1px solid #1e1e2a;border-radius:12px;padding:1.5rem;transition:border-color .4s, opacity .65s ease, transform .65s ease; }
 .skill-card:hover { border-color:rgba(139,92,246,.3); }
@@ -278,7 +288,6 @@
   .section { padding:4.5rem 0; }
   .section-header { margin-bottom:2.5rem; }
   .proj-grid { grid-template-columns:minmax(0,1fr); }
-  .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:2rem; }
 }
 
 /* Responsive: mobile (<640px) */
