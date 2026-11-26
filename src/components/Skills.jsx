@@ -54,7 +54,7 @@ function SkillGroup({ g, delay }) {
   return (
     <div ref={ref} className={`skill-card reveal${visible ? ' in' : ''}`} style={{ transitionDelay:`${delay}ms` }}>
       <div style={{ display:'flex', alignItems:'center', gap:'.75rem', marginBottom:'1.2rem' }}>
-        <span style={{ fontSize:'1.1rem', color: g.cyan ? '#22d3ee' : '#8b5cf6' }}>{g.icon}</span>
+        <span aria-hidden="true" style={{ fontSize:'1.1rem', color: g.cyan ? '#22d3ee' : '#8b5cf6' }}>{g.icon}</span>
         <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:600, fontSize:'.85rem', color:'#fff', letterSpacing:'.04em' }}>{g.label}</h3>
       </div>
       <div style={{ display:'flex', flexDirection:'column', gap:'.9rem' }}>
@@ -62,7 +62,7 @@ function SkillGroup({ g, delay }) {
           <div key={s.n}>
             <div style={{ display:'flex', justifyContent:'space-between', marginBottom:'.35rem' }}>
               <span style={{ fontSize:'.78rem', color:'#94a3b8' }}>{s.n}</span>
-              <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#475569' }}>{s.v}%</span>
+              <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-dim)' }}>{s.v}%</span>
             </div>
             <div className="bar-track">
               {visible && <div className={`bar-fill${g.cyan ? ' c' : ''}`} style={{ '--bw':`${s.v}%`, animationDelay:`${delay + i * 80}ms` }} />}
@@ -79,7 +79,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section" style={{ background:'#0e0e12' }}>
-      <div className="grid-bg" style={{ position:'absolute', inset:0, opacity:.6 }} />
+      <div className="grid-bg" aria-hidden="true" style={{ position:'absolute', inset:0, opacity:.6 }} />
       <div className="container-x" style={{ position:'relative', zIndex:1 }}>
         <SectionHeader
           label="Skills"
@@ -98,7 +98,7 @@ export default function Skills() {
           {STATS.map((s, i) => (
             <div key={s.label} className={`reveal${statsVisible ? ' in' : ''}`} style={{ textAlign:'center', transitionDelay:`${i * 100}ms` }}>
               <div className="grad-text stat-num">{s.num}</div>
-              <div style={{ fontSize:'.7rem', color:'#475569', marginTop:'.25rem', letterSpacing:'.04em' }}>{s.label}</div>
+              <div style={{ fontSize:'.7rem', color:'var(--txt-dim)', marginTop:'.25rem', letterSpacing:'.04em' }}>{s.label}</div>
             </div>
           ))}
         </div>

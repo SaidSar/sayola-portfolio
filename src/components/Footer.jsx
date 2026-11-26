@@ -7,11 +7,11 @@ export default function Footer() {
           <span style={{ color:'#8b5cf6', textShadow:'0 0 20px rgba(139,92,246,.8)' }}>OLA</span>
           <span style={{ color:'#22d3ee' }}>.</span>
         </div>
-        <p style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#334155', letterSpacing:'.1em' }}>
+        <p style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-faint)', letterSpacing:'.1em' }}>
           © {new Date().getFullYear()} — Diseñado & desarrollado con 💜 por Sayola
         </p>
-        <div style={{ display:'flex', alignItems:'center', gap:'.4rem', fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#334155' }}>
-          <span className="anim-pulse" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />
+        <div style={{ display:'flex', alignItems:'center', gap:'.4rem', fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-faint)' }}>
+          <span className="anim-pulse" aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />
           v2.0.0
         </div>
       </div>

@@ -43,6 +43,13 @@ export default function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   const go = (id) => {
     scrollToId(id)
     setActive(id)
@@ -50,9 +57,9 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" aria-label="Principal">
       <div className="nav-inner">
-        <button onClick={() => go('inicio')} className="nav-logo">
+        <button onClick={() => go('inicio')} className="nav-logo" aria-label="Sayola, ir al inicio">
           <span style={{ color: '#fff' }}>SAY</span>
           <span style={{ color: '#8b5cf6', textShadow: '0 0 20px rgba(139,92,246,.8)' }}>OLA</span>
           <span style={{ color: '#22d3ee' }}>.</span>
@@ -61,7 +68,7 @@ export default function Navbar() {
         <ul className="nav-links">
           {links.map(l => (
             <li key={l.href}>
-              <button onClick={() => go(l.href)} className={`nav-link ${active === l.href ? 'active' : ''}`}>
+              <button onClick={() => go(l.href)} className={`nav-link ${active === l.href ? 'active' : ''}`} aria-current={active === l.href ? 'true' : undefined}>
                 {l.label}
               </button>
             </li>
@@ -69,13 +76,19 @@ export default function Navbar() {
         </ul>
 
         <button onClick={() => go('contacto')} className="nav-badge">
-          <span className="anim-pulse" style={{ width: 7, height: 7, borderRadius: '50%', background: '#22d3ee', display: 'inline-block' }} />
+          <span className="anim-pulse" aria-hidden="true" style={{ width: 7, height: 7, borderRadius: '50%', background: '#22d3ee', display: 'inline-block' }} />
           Disponible
         </button>
 
-        <button onClick={() => setOpen(!open)} className="nav-burger">
+        <button
+          onClick={() => setOpen(!open)}
+          className="nav-burger"
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+        >
           {[0, 1, 2].map(i => (
-            <span key={i} className="nav-burger-line" style={{
+            <span key={i} className="nav-burger-line" aria-hidden="true" style={{
               transform: open && i === 0 ? 'translateY(6px) rotate(45deg)' : open && i === 2 ? 'translateY(-6px) rotate(-45deg)' : 'none',
               opacity: open && i === 1 ? 0 : 1,
             }} />
@@ -83,11 +96,16 @@ export default function Navbar() {
         </button>
       </div>
 
-      <div className={`nav-mobile${open ? ' open' : ''}`}>
+      <div
+        id="mobile-menu"
+        className={`nav-mobile${open ? ' open' : ''}`}
+        aria-hidden={!open}
+        inert={open ? undefined : ''}
+      >
         <ul className="nav-mobile-list">
           {links.map(l => (
             <li key={l.href}>
-              <button onClick={() => go(l.href)} className={`nav-link ${active === l.href ? 'active' : ''}`}>{l.label}</button>
+              <button onClick={() => go(l.href)} className={`nav-link ${active === l.href ? 'active' : ''}`} aria-current={active === l.href ? 'true' : undefined}>{l.label}</button>
             </li>
           ))}
         </ul>

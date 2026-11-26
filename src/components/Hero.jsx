@@ -15,18 +15,18 @@ const S = {
   scanLine: { position:'absolute', left:0, right:0, height:60, background:'linear-gradient(to bottom,transparent,rgba(34,211,238,.08),transparent)', pointerEvents:'none', zIndex:2 },
   statusBadge: { position:'absolute', top:14, left:14, zIndex:3, display:'flex', alignItems:'center', gap:'.5rem', background:'rgba(7,7,9,.8)', backdropFilter:'blur(8px)', border:'1px solid #1e1e2a', padding:'.35rem .9rem', borderRadius:999 },
   statusDot: { width:8, height:8, borderRadius:'50%', background:'#22d3ee', flexShrink:0 },
-  statusTxt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#22d3ee', letterSpacing:'.1em' },
+  statusTxt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'#22d3ee', letterSpacing:'.1em' },
   col: { display:'flex', flexDirection:'column', gap:'1.3rem' },
   eyebrow: { display:'flex', alignItems:'center', gap:'.75rem' },
   eyebrowLine: { height:1, width:32, background:'linear-gradient(90deg,#8b5cf6,#22d3ee)' },
-  eyebrowTxt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#475569', letterSpacing:'.25em', textTransform:'uppercase' },
-  namePre: { fontFamily:"'Syne',sans-serif", fontSize:'.82rem', color:'#475569', letterSpacing:'.25em', textTransform:'uppercase', marginBottom:'.3rem' },
+  eyebrowTxt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-dim)', letterSpacing:'.25em', textTransform:'uppercase' },
+  namePre: { fontFamily:"'Syne',sans-serif", fontSize:'.82rem', color:'var(--txt-dim)', letterSpacing:'.25em', textTransform:'uppercase', marginBottom:'.3rem' },
   typeRow: { display:'flex', alignItems:'center', gap:'.5rem', height:'1.4rem' },
-  prompt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.78rem', color:'#475569' },
+  prompt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.78rem', color:'var(--txt-dim)' },
   twTxt: { fontFamily:"'JetBrains Mono',monospace", fontSize:'.78rem', color:'#22d3ee' },
   cursor: { display:'inline-block', width:2, height:'1rem', background:'#22d3ee', marginLeft:1, verticalAlign:'middle' },
   desc: { color:'#94a3b8', fontSize:'1rem', lineHeight:1.75, maxWidth:440, fontWeight:300 },
-  pills: { display:'flex', flexWrap:'wrap', gap:'.45rem' },
+  pills: { display:'flex', flexWrap:'wrap', gap:'.45rem', listStyle:'none', margin:0, padding:0 },
   ctas: { display:'flex', gap:'1rem', flexWrap:'wrap', marginTop:'.25rem' },
   socials: { display:'flex', gap:'.7rem' },
 }
@@ -34,6 +34,10 @@ const S = {
 function useTypewriter(words) {
   const ref = useRef(null)
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (ref.current) ref.current.textContent = words[0]
+      return
+    }
     let i = 0, ci = 0, del = false, tid
     const type = () => {
       if (!ref.current) return
@@ -58,28 +62,30 @@ export default function Hero() {
 
   return (
     <section id="inicio" className="hero">
-      <div className="grid-bg" style={{ position:'absolute', inset:0 }} />
-      <div style={S.orb1} />
-      <div style={S.orb2} />
+      <div aria-hidden="true">
+        <div className="grid-bg" style={{ position:'absolute', inset:0 }} />
+        <div style={S.orb1} />
+        <div style={S.orb2} />
+      </div>
 
       <div className="hero-grid">
         <div className="fade-up d1 hero-avatar-wrap">
           <div style={{ position:'relative', display:'inline-block' }}>
-            <div className="bk-tl" /><div className="bk-tr" />
-            <div className="bk-bl" /><div className="bk-br" />
+            <div className="bk-tl" aria-hidden="true" /><div className="bk-tr" aria-hidden="true" />
+            <div className="bk-bl" aria-hidden="true" /><div className="bk-br" aria-hidden="true" />
             <div className="avatar-box anim-float">
               <div className="avatar-inner">
-                <div className="anim-scan" style={S.scanLine} />
+                <div className="anim-scan" aria-hidden="true" style={S.scanLine} />
                 <img
                   src="/fotoperfil.jpg"
-                  alt="Sayola"
+                  alt="Foto de perfil de Sayola"
                   width={320}
                   height={400}
                   style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }}
                 />
               </div>
               <div style={S.statusBadge}>
-                <span className="anim-pulse" style={S.statusDot} />
+                <span className="anim-pulse" aria-hidden="true" style={S.statusDot} />
                 <span style={S.statusTxt}>Open to work</span>
               </div>
             </div>
@@ -94,14 +100,17 @@ export default function Hero() {
 
           <div className="fade-up d2">
             <p style={S.namePre}>Hola, soy</p>
-            <span className="hero-name">Sayola</span>
-            <span className="hero-name-dev grad-text">.dev</span>
+            <h1>
+              <span className="hero-name">Sayola</span>
+              <span className="hero-name-dev grad-text">.dev</span>
+            </h1>
           </div>
 
           <div className="fade-up d3" style={S.typeRow}>
-            <span style={S.prompt}>$&gt;</span>
-            <span ref={twRef} style={S.twTxt} />
-            <span className="anim-blink" style={S.cursor} />
+            <span className="sr-only">{ROLES.join(', ')}</span>
+            <span aria-hidden="true" style={S.prompt}>$&gt;</span>
+            <span ref={twRef} aria-hidden="true" style={S.twTxt} />
+            <span className="anim-blink" aria-hidden="true" style={S.cursor} />
           </div>
 
           <p className="fade-up d4" style={S.desc}>
@@ -109,9 +118,9 @@ export default function Hero() {
             Desde arquitecturas web escalables hasta videojuegos inmersivos — si existe en una pantalla, puedo crearlo.
           </p>
 
-          <div className="fade-up d5" style={S.pills}>
-            {TECH.map(t => <span key={t} className="pill">{t}</span>)}
-          </div>
+          <ul className="fade-up d5" style={S.pills} aria-label="Tecnologías principales">
+            {TECH.map(t => <li key={t} className="pill">{t}</li>)}
+          </ul>
 
           <div className="fade-up d6 hero-ctas" style={S.ctas}>
             <button className="btn-p" onClick={() => scrollToId('proyectos')}>Ver proyectos</button>
@@ -126,8 +135,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="hero-scroll-hint">
-        <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.6rem', color:'#64748b', letterSpacing:'.2em', textTransform:'uppercase' }}>Scroll</span>
+      <div className="hero-scroll-hint" aria-hidden="true">
+        <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'#64748b', letterSpacing:'.2em', textTransform:'uppercase' }}>Scroll</span>
         <div style={{ width:12, height:12, borderRight:'1px solid #64748b', borderBottom:'1px solid #64748b', transform:'rotate(45deg)' }} />
       </div>
     </section>

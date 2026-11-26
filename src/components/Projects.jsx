@@ -90,23 +90,23 @@ function Card({ p, delay }) {
   return (
     <div ref={ref} className={`reveal${visible ? ' in' : ''}`} style={{ transitionDelay:`${delay}ms` }}>
       <article className="proj-card">
-        <div style={{ height:1, background:`linear-gradient(90deg,transparent,${p.accent},transparent)`, opacity:.7 }} />
+        <div aria-hidden="true" style={{ height:1, background:`linear-gradient(90deg,transparent,${p.accent},transparent)`, opacity:.7 }} />
         <div style={{ padding:'1.75rem', display:'flex', flexDirection:'column', gap:'1.2rem' }}>
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
             <div>
-              <div style={{ ...mono, fontSize:'.62rem', color:'#334155', letterSpacing:'.2em', textTransform:'uppercase' }}>Project {p.id}</div>
+              <div style={{ ...mono, fontSize:'.7rem', color:'var(--txt-faint)', letterSpacing:'.2em', textTransform:'uppercase' }}>Project {p.id}</div>
               <h3 className="ctitle">{p.title}</h3>
-              <div style={{ fontSize:'.7rem', color:'#475569', marginTop:'.1rem' }}>{p.sub}</div>
+              <div style={{ fontSize:'.7rem', color:'var(--txt-dim)', marginTop:'.1rem' }}>{p.sub}</div>
             </div>
-            <span style={{ ...badgeStyle, ...mono, flexShrink:0, marginLeft:'.5rem', padding:'.25rem .7rem', borderRadius:999, fontSize:'.58rem', letterSpacing:'.1em', textTransform:'uppercase', display:'flex', alignItems:'center', gap:'.35rem' }}>
-              {p.status === 'Live' && <span className="anim-pulse" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />}
+            <span style={{ ...badgeStyle, ...mono, flexShrink:0, marginLeft:'.5rem', padding:'.25rem .7rem', borderRadius:999, fontSize:'.7rem', letterSpacing:'.1em', textTransform:'uppercase', display:'flex', alignItems:'center', gap:'.35rem' }}>
+              {p.status === 'Live' && <span className="anim-pulse" aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />}
               {p.status}
             </span>
           </div>
           <p style={{ color:'#94a3b8', fontSize:'.82rem', lineHeight:1.7, fontWeight:300 }}>{p.desc}</p>
           <ul style={{ display:'flex', flexWrap:'wrap', gap:'.4rem', listStyle:'none', margin:0, padding:0 }}>
             {p.stack.map(t => (
-              <li key={t} style={{ ...mono, padding:'.2rem .65rem', fontSize:'.6rem', color:'#475569', border:'1px solid #1e1e2a', borderRadius:3, background:'rgba(7,7,9,.5)' }}>{t}</li>
+              <li key={t} style={{ ...mono, padding:'.2rem .65rem', fontSize:'.7rem', color:'var(--txt-dim)', border:'1px solid #1e1e2a', borderRadius:3, background:'rgba(7,7,9,.5)' }}>{t}</li>
             ))}
           </ul>
           <div style={{ display:'flex', alignItems:'center', flexWrap:'wrap', gap:'.75rem', paddingTop:'.75rem', borderTop:'1px solid #1e1e2a' }}>
@@ -116,8 +116,8 @@ function Card({ p, delay }) {
             </a>
             {gh && (
               <div style={{ display:'flex', gap:'.75rem', marginLeft:'auto' }}>
-                <span style={{ ...mono, fontSize:'.58rem', color:'#334155' }}>★ {gh.stars}</span>
-                <span style={{ ...mono, fontSize:'.58rem', color:'#334155' }}>↑ {gh.updated}</span>
+                <span style={{ ...mono, fontSize:'.7rem', color:'var(--txt-faint)' }} aria-label={`${gh.stars} estrellas en GitHub`}>★ {gh.stars}</span>
+                <span style={{ ...mono, fontSize:'.7rem', color:'var(--txt-faint)' }} aria-label={`Última actualización: ${gh.updated}`}>↑ {gh.updated}</span>
               </div>
             )}
             {p.demo && (

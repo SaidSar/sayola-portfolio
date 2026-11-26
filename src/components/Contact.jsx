@@ -15,8 +15,9 @@ const LINKS = [
 const EMPTY_FORM = { name:'', email:'', msg:'' }
 
 function ContactLink({ item }) {
+  const external = item.href.startsWith('http')
   return (
-    <a href={item.href} target="_blank" rel="noopener noreferrer" className="contact-link">
+    <a href={item.href} className="contact-link" {...(external && { target: '_blank', rel: 'noopener noreferrer' })}>
       <div className="contact-icon">{item.icon}</div>
       <div>
         <div className="field-label">{item.label}</div>
@@ -73,18 +74,18 @@ export default function Contact() {
           <div className={`reveal${visible ? ' in' : ''}`} style={{ display:'flex', flexDirection:'column', gap:'2rem', transitionDelay:'200ms' }}>
             {LINKS.map(l => <ContactLink key={l.label} item={l} />)}
             <div style={{ marginTop:'.5rem', padding:'1.1rem 1.4rem', border:'1px solid rgba(34,211,238,.2)', borderRadius:12, background:'rgba(34,211,238,.04)', display:'flex', alignItems:'center', gap:'1rem' }}>
-              <span className="anim-pulse" style={{ width:12, height:12, borderRadius:'50%', background:'#22d3ee', flexShrink:0, display:'inline-block' }} />
+              <span className="anim-pulse" aria-hidden="true" style={{ width:12, height:12, borderRadius:'50%', background:'#22d3ee', flexShrink:0, display:'inline-block' }} />
               <div>
                 <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:600, fontSize:'.85rem', color:'#22d3ee' }}>Disponible para proyectos</div>
-                <div style={{ fontSize:'.7rem', color:'#475569', marginTop:'.1rem' }}>Freelance · Prácticas profesionales · Colaboraciones</div>
+                <div style={{ fontSize:'.7rem', color:'var(--txt-dim)', marginTop:'.1rem' }}>Freelance · Prácticas profesionales · Colaboraciones</div>
               </div>
             </div>
           </div>
 
           <div className={`reveal${visible ? ' in' : ''}`} style={{ transitionDelay:'300ms' }}>
             {sent ? (
-              <div style={{ background:'#13131a', border:'1px solid rgba(139,92,246,.3)', borderRadius:14, padding:'3rem 2rem', textAlign:'center', boxShadow:'0 0 30px rgba(139,92,246,.15)' }}>
-                <div style={{ fontSize:'2.5rem', marginBottom:'1rem' }}>✦</div>
+              <div role="status" style={{ background:'#13131a', border:'1px solid rgba(139,92,246,.3)', borderRadius:14, padding:'3rem 2rem', textAlign:'center', boxShadow:'0 0 30px rgba(139,92,246,.15)' }}>
+                <div aria-hidden="true" style={{ fontSize:'2.5rem', marginBottom:'1rem' }}>✦</div>
                 <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:'1.25rem', color:'#fff' }}>¡Mensaje enviado!</div>
                 <div style={{ color:'#94a3b8', fontSize:'.85rem', marginTop:'.4rem' }}>Te respondo en menos de 24 horas. Gracias por escribir.</div>
                 <button onClick={() => setSent(false)} style={{ marginTop:'1.5rem', background:'none', border:'none', cursor:'pointer', fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'#8b5cf6', textDecoration:'underline', textUnderlineOffset:4 }}>
@@ -95,26 +96,24 @@ export default function Contact() {
               <form onSubmit={submit} className="contact-form">
                 <div className="form-row">
                   <div className="field">
-                    <label className="field-label">Nombre</label>
-                    <input className="ff" type="text" placeholder="Tu nombre" value={form.name} onChange={update('name')} required />
+                    <label htmlFor="contact-name" className="field-label">Nombre</label>
+                    <input id="contact-name" name="name" autoComplete="name" className="ff" type="text" placeholder="Tu nombre" value={form.name} onChange={update('name')} required />
                   </div>
                   <div className="field">
-                    <label className="field-label">Email</label>
-                    <input className="ff" type="email" placeholder="tu@email.com" value={form.email} onChange={update('email')} required />
+                    <label htmlFor="contact-email" className="field-label">Email</label>
+                    <input id="contact-email" name="email" autoComplete="email" className="ff" type="email" placeholder="tu@email.com" value={form.email} onChange={update('email')} required />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="field-label">Mensaje</label>
-                  <textarea className="ff" rows={5} placeholder="Cuéntame sobre tu proyecto o idea..." value={form.msg} onChange={update('msg')} required style={{ resize:'none' }} />
+                  <label htmlFor="contact-msg" className="field-label">Mensaje</label>
+                  <textarea id="contact-msg" name="message" className="ff" rows={5} placeholder="Cuéntame sobre tu proyecto o idea..." value={form.msg} onChange={update('msg')} required style={{ resize:'none' }} />
                 </div>
                 {!FORM_READY && (
-                  <p className="form-notice">
+                  <p className="form-notice" role="status">
                     El formulario todavía no está configurado. Mientras tanto, escríbeme directo por email o LinkedIn.
                   </p>
                 )}
-                {error && (
-                  <p style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.65rem', color:'#f87171', margin:0 }}>{error}</p>
-                )}
+                {error && <p role="alert" className="form-error">{error}</p>}
                 <button type="submit" disabled={loading || !FORM_READY} className="btn-p" style={{ width:'100%' }}>
                   {loading ? (
                     <span style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'.5rem' }}>
