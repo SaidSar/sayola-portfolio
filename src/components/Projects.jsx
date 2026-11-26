@@ -21,7 +21,8 @@ const PROJECTS = [
     id: '02',
     title: 'SCHIZOPHRENIA',
     sub: 'Videojuego de Horror Mobile',
-    desc: 'Juego de terror 3D en primera persona para Android, desarrollado en solitario. Audio reactivo, iluminación dinámica y mecánicas psicológicas inmersivas.',
+    desc: 'Juego de terror 3D en primera persona para Android, hecho en equipo con Godot 4.6.',
+    role: 'UI y programación',
     stack: ['Godot 4.6', 'GDScript', 'Blender', 'Android'],
     status: 'dev',
     accent: '#22d3ee',
@@ -105,6 +106,9 @@ function Card({ p, delay }) {
             </span>
           </div>
           <p style={{ color:'#94a3b8', fontSize:'.82rem', lineHeight:1.7, fontWeight:300 }}>{p.desc}</p>
+          {p.role && (
+            <p className="proj-role"><span>Mi rol:</span> {p.role}</p>
+          )}
           <ul style={{ display:'flex', flexWrap:'wrap', gap:'.4rem', listStyle:'none', margin:0, padding:0 }}>
             {p.stack.map(t => (
               <li key={t} style={{ ...mono, padding:'.2rem .65rem', fontSize:'.7rem', color:'var(--txt-dim)', border:'1px solid #1e1e2a', borderRadius:3, background:'rgba(7,7,9,.5)' }}>{t}</li>

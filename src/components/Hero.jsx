@@ -3,7 +3,7 @@ import { scrollToId } from '../utils/scroll'
 import { GITHUB_URL, LINKEDIN_URL } from '../config/site'
 import { GitHubIcon, LinkedInIcon } from './Icons'
 
-const ROLES = ['Software Engineer', 'Game Developer', 'Frontend Architect', 'React Native Dev']
+const ROLES = ['Estudiante de Ingeniería de Software', 'Desarrollador Web', 'Desarrollador Móvil', 'Desarrollo de Videojuegos']
 const TECH = ['React', 'React Native', 'Azure', 'Godot Engine', 'Microsoft.NET', 'Tailwind CSS']
 const SOCIALS = [
   { label: 'GitHub',   href: GITHUB_URL,   Icon: GitHubIcon },
@@ -139,8 +139,8 @@ export default function Hero() {
       </div>
 
       <div className="hero-scroll-hint" aria-hidden="true">
-        <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'#64748b', letterSpacing:'.2em', textTransform:'uppercase' }}>Scroll</span>
-        <div style={{ width:12, height:12, borderRight:'1px solid #64748b', borderBottom:'1px solid #64748b', transform:'rotate(45deg)' }} />
+        <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-muted)', letterSpacing:'.2em', textTransform:'uppercase' }}>Scroll</span>
+        <div style={{ width:12, height:12, borderRight:'1px solid var(--txt-muted)', borderBottom:'1px solid var(--txt-muted)', transform:'rotate(45deg)' }} />
       </div>
     </section>
   )
