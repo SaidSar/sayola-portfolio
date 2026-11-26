@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import useReveal from '../hooks/useReveal'
+import SectionHeader from './SectionHeader'
 
 const GROUPS = [
   {
@@ -48,19 +49,13 @@ const STATS = [
 ]
 
 function SkillGroup({ g, delay }) {
-  const ref = useRef(null)
-  const [vis, setVis] = useState(false)
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true) }, { threshold: 0.1 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [])
+  const [ref, visible] = useReveal(0.1)
 
   return (
-    <div ref={ref} className="skill-card" style={{ opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(20px)', transition: `opacity .65s ease ${delay}ms, transform .65s ease ${delay}ms` }}>
+    <div ref={ref} className={`skill-card reveal${visible ? ' in' : ''}`} style={{ transitionDelay:`${delay}ms` }}>
       <div style={{ display:'flex', alignItems:'center', gap:'.75rem', marginBottom:'1.2rem' }}>
         <span style={{ fontSize:'1.1rem', color: g.cyan ? '#22d3ee' : '#8b5cf6' }}>{g.icon}</span>
-        <span style={{ fontFamily:"'Syne',sans-serif", fontWeight:600, fontSize:'.85rem', color:'#fff', letterSpacing:'.04em' }}>{g.label}</span>
+        <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:600, fontSize:'.85rem', color:'#fff', letterSpacing:'.04em' }}>{g.label}</h3>
       </div>
       <div style={{ display:'flex', flexDirection:'column', gap:'.9rem' }}>
         {g.skills.map((s, i) => (
@@ -70,7 +65,7 @@ function SkillGroup({ g, delay }) {
               <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#475569' }}>{s.v}%</span>
             </div>
             <div className="bar-track">
-              {vis && <div className={`bar-fill${g.cyan ? ' c' : ''}`} style={{ '--bw':`${s.v}%`, animationDelay:`${delay + i * 80}ms` }} />}
+              {visible && <div className={`bar-fill${g.cyan ? ' c' : ''}`} style={{ '--bw':`${s.v}%`, animationDelay:`${delay + i * 80}ms` }} />}
             </div>
           </div>
         ))}
@@ -80,42 +75,28 @@ function SkillGroup({ g, delay }) {
 }
 
 export default function Skills() {
-  const hdrRef = useRef(null)
-  const [vis, setVis] = useState(false)
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true) }, { threshold: 0.15 })
-    if (hdrRef.current) obs.observe(hdrRef.current)
-    return () => obs.disconnect()
-  }, [])
+  const [statsRef, statsVisible] = useReveal(0.2)
 
   return (
-    <section id="skills" style={{ padding:'7rem 0', position:'relative', background:'#0e0e12' }}>
+    <section id="skills" className="section" style={{ background:'#0e0e12' }}>
       <div className="grid-bg" style={{ position:'absolute', inset:0, opacity:.6 }} />
-      <div style={{ maxWidth:1280, margin:'0 auto', padding:'0 2.5rem', position:'relative', zIndex:1 }}>
-        {/* header */}
-        <div ref={hdrRef} style={{ marginBottom:'4rem', opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(24px)', transition:'all .65s ease' }}>
-          <div style={{ display:'flex', alignItems:'center', gap:'1rem', marginBottom:'1rem' }}>
-            <div style={{ height:1, width:32, background:'linear-gradient(90deg,#22d3ee,transparent)' }} />
-            <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.62rem', color:'#475569', letterSpacing:'.25em', textTransform:'uppercase' }}> / Skills</span>
-          </div>
-          <h2 style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'3.5rem', lineHeight:1.05, color:'#fff' }}>
-            Arsenal<br />
-            <span className="grad-text-rev">técnico</span>
-          </h2>
-          <p style={{ marginTop:'.75rem', color:'#64748b', fontWeight:300, maxWidth:400, fontSize:'.95rem', lineHeight:1.7 }}>
-            Tecnologías que aplico en proyectos reales — desde apps web hasta videojuegos.
-          </p>
-        </div>
+      <div className="container-x" style={{ position:'relative', zIndex:1 }}>
+        <SectionHeader
+          label="Skills"
+          title="Arsenal"
+          highlight="técnico"
+          desc="Tecnologías que aplico en proyectos reales — desde apps web hasta videojuegos."
+          accent="#22d3ee"
+          reverse
+        />
 
-        {/* grid */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1.5rem', marginBottom:'4rem' }}>
+        <div className="skills-grid">
           {GROUPS.map((g, i) => <SkillGroup key={g.label} g={g} delay={i * 100} />)}
         </div>
 
-        {/* stats */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1.5rem' }}>
+        <div ref={statsRef} className="stats-grid">
           {STATS.map((s, i) => (
-            <div key={s.label} style={{ textAlign:'center', opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(16px)', transition:`all .65s ease ${i * 100 + 400}ms` }}>
+            <div key={s.label} className={`reveal${statsVisible ? ' in' : ''}`} style={{ textAlign:'center', transitionDelay:`${i * 100}ms` }}>
               <div className="grad-text" style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'2.5rem' }}>{s.num}</div>
               <div style={{ fontSize:'.7rem', color:'#475569', marginTop:'.25rem', letterSpacing:'.04em' }}>{s.label}</div>
             </div>
