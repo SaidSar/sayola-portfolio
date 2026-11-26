@@ -1,120 +1,63 @@
-# Sayola · Developer Portfolio
+# Sayola · Portafolio
 
-Portafolio profesional con estilo **Minimalista + Gamer + Épico**, construido con React + Vite + Tailwind CSS.
+Portafolio personal de desarrollador: estilo minimalista y gamer, fondo oscuro con acentos neón. Sitio en español, de una sola página.
 
----
-
-## 🚀 Stack
+## Stack
 
 - **React 18** + **Vite 5**
-- **Tailwind CSS 3** (config personalizado con colores neón, animaciones, efectos glow)
-- Fuentes: **Syne** (display) · **DM Sans** (body) · **JetBrains Mono** (código)
+- **CSS propio** en `src/index.css` (clases, `@media` y animaciones) más estilos en línea en los componentes
+- **Tailwind CSS 3** instalado solo para el reset base y utilidades estándar; no se usan tokens personalizados
+- Fuentes de Google Fonts: Syne (títulos), DM Sans (cuerpo) y JetBrains Mono (etiquetas)
+- Formulario de contacto con [Formspree](https://formspree.io)
+- Estadísticas de repos desde la API pública de GitHub
 
----
+## Correr en local
 
-## 📦 Instalación
+Requiere Node.js 18 o superior.
 
 ```bash
-# 1. Entra a la carpeta del proyecto
-cd sayola-portfolio
-
-# 2. Instala dependencias
 npm install
-
-# 3. Corre el servidor de desarrollo
-npm run dev
+npm run dev       # http://localhost:5173
 ```
 
-Abre [http://localhost:5173](http://localhost:5173) en tu navegador.
-
----
-
-## 🏗️ Build para producción
+## Build de producción
 
 ```bash
-npm run build
-npm run preview
+npm run build     # genera dist/
+npm run preview   # sirve dist/ en local
 ```
 
----
+## Configuración
 
-## 📁 Estructura
+Los datos de contacto viven en `src/config/site.js`. Los valores marcados con `PLACEHOLDER` se llenan a mano:
+
+| Constante | Uso |
+|---|---|
+| `EMAIL` | Correo de contacto |
+| `LINKEDIN_URL` | Perfil de LinkedIn (Hero y Contacto) |
+| `FORMSPREE_ID` | ID del formulario de Formspree; mientras sea `YOUR_FORM_ID` el formulario queda deshabilitado con un aviso |
+
+Los proyectos se editan en el arreglo `PROJECTS` de `src/components/Projects.jsx`. Si un proyecto tiene `repo` (`usuario/repositorio`), la tarjeta muestra estrellas y fecha de la última actualización.
+
+## Estructura
 
 ```
-sayola-portfolio/
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx      # Navbar fijo con blur y links activos
-│   │   ├── Hero.jsx        # Hero animado con typewriter y avatar
-│   │   ├── Projects.jsx    # Cards de proyectos con hover glow
-│   │   ├── Skills.jsx      # Barras de habilidades animadas
-│   │   ├── Contact.jsx     # Formulario de contacto + links sociales
-│   │   └── Footer.jsx      # Footer minimalista
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css           # Estilos globales + utilidades glow
-├── index.html
-├── tailwind.config.js      # Paleta personalizada + animaciones
-├── vite.config.js
-└── postcss.config.js
+src/
+├── components/   Navbar, Hero, Projects, Skills, Contact, Footer, SectionHeader, Icons
+├── config/       site.js (datos de contacto)
+├── hooks/        useReveal.js (animación al entrar en pantalla)
+├── utils/        scroll.js (scroll suave a secciones)
+├── App.jsx
+├── main.jsx
+└── index.css     estilos globales, layout responsive y animaciones
+public/           foto de perfil y favicon
 ```
 
----
+## Despliegue en Vercel
 
-## 🎨 Paleta de colores
+1. Sube el proyecto a un repositorio de GitHub.
+2. En Vercel: **Add New → Project** e importa el repositorio.
+3. Framework preset: **Vite**. Build command `npm run build`, output `dist`.
+4. Deploy. Cada push a `main` vuelve a desplegar.
 
-| Token | Hex | Uso |
-|---|---|---|
-| `void` | `#070709` | Fondo principal |
-| `surface` | `#0e0e12` | Fondo de sección |
-| `panel` | `#13131a` | Cards y paneles |
-| `violet` | `#8b5cf6` | Acento principal |
-| `cyan` | `#22d3ee` | Acento secundario |
-
----
-
-## 🖼️ Agrega tu foto
-
-En `src/components/Hero.jsx`, reemplaza el bloque del avatar placeholder con:
-
-```jsx
-<img
-  src="/tu-foto.jpg"
-  alt="Sayola"
-  className="w-full h-full object-cover object-top"
-/>
-```
-
-Y coloca tu foto en la carpeta `public/`.
-
----
-
-## ✨ Funciones principales
-
-- **Navbar** fijo con `backdrop-blur`, links activos y menú mobile
-- **Hero** con efecto typewriter para roles, animaciones `fade-up`, brackets decorativos y orbs de luz ambiente
-- **Projects** con cards de hover glow, badges de estado y links a GitHub/Demo
-- **Skills** con barras de progreso animadas al hacer scroll + stats
-- **Contacto** con formulario funcional (listo para conectar a EmailJS o similar)
-
----
-
-## 🔌 Conectar el formulario (EmailJS)
-
-```bash
-npm install @emailjs/browser
-```
-
-En `Contact.jsx`, reemplaza el `setTimeout` del handleSubmit con:
-
-```js
-import emailjs from '@emailjs/browser'
-
-emailjs.send('SERVICE_ID', 'TEMPLATE_ID', form, 'PUBLIC_KEY')
-  .then(() => setSent(true))
-  .finally(() => setLoading(false))
-```
-
----
-
-Desarrollado por **Sayola** · Nexus Code™
+El sitio no necesita variables de entorno.

@@ -2,14 +2,12 @@ import { useState } from 'react'
 import useReveal from '../hooks/useReveal'
 import SectionHeader from './SectionHeader'
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons'
-
-const FORMSPREE_ID = 'YOUR_FORM_ID'
-const FORM_READY = FORMSPREE_ID !== 'YOUR_FORM_ID'
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, FORMSPREE_ID, FORM_READY, displayUrl } from '../config/site'
 
 const LINKS = [
-  { label: 'Email',    val: 'tu@email.com',              href: 'mailto:tu@email.com',               icon: <MailIcon size={18} /> },
-  { label: 'GitHub',   val: 'github.com/SaidSar',        href: 'https://github.com/SaidSar',        icon: <GitHubIcon size={18} /> },
-  { label: 'LinkedIn', val: 'linkedin.com/in/tu-perfil', href: 'https://linkedin.com/in/tu-perfil', icon: <LinkedInIcon size={18} /> },
+  { label: 'Email',    val: EMAIL,                    href: `mailto:${EMAIL}`, icon: <MailIcon size={18} /> },
+  { label: 'GitHub',   val: displayUrl(GITHUB_URL),   href: GITHUB_URL,        icon: <GitHubIcon size={18} /> },
+  { label: 'LinkedIn', val: displayUrl(LINKEDIN_URL), href: LINKEDIN_URL,      icon: <LinkedInIcon size={18} /> },
 ]
 
 const EMPTY_FORM = { name:'', email:'', msg:'' }
@@ -65,9 +63,8 @@ export default function Contact() {
       <div className="container-x">
         <SectionHeader
           label="Contacto"
-          title="Hablemos de"
-          highlight="tu proyecto"
-          desc="¿Tienes una idea o quieres colaborar? Escríbeme — respondo en menos de 24 horas."
+          highlight="Hablemos"
+          desc="¿Tienes una idea o quieres colaborar? Escríbeme — te respondo pronto."
         />
 
         <div ref={ref} className="contact-grid">
@@ -76,8 +73,7 @@ export default function Contact() {
             <div style={{ marginTop:'.5rem', padding:'1.1rem 1.4rem', border:'1px solid rgba(34,211,238,.2)', borderRadius:12, background:'rgba(34,211,238,.04)', display:'flex', alignItems:'center', gap:'1rem' }}>
               <span className="anim-pulse" aria-hidden="true" style={{ width:12, height:12, borderRadius:'50%', background:'#22d3ee', flexShrink:0, display:'inline-block' }} />
               <div>
-                <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:600, fontSize:'.85rem', color:'#22d3ee' }}>Disponible para proyectos</div>
-                <div style={{ fontSize:'.7rem', color:'var(--txt-dim)', marginTop:'.1rem' }}>Freelance · Prácticas profesionales · Colaboraciones</div>
+                <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:600, fontSize:'.85rem', color:'#22d3ee' }}>Disponible para prácticas profesionales y colaboraciones</div>
               </div>
             </div>
           </div>
@@ -87,7 +83,7 @@ export default function Contact() {
               <div role="status" style={{ background:'#13131a', border:'1px solid rgba(139,92,246,.3)', borderRadius:14, padding:'3rem 2rem', textAlign:'center', boxShadow:'0 0 30px rgba(139,92,246,.15)' }}>
                 <div aria-hidden="true" style={{ fontSize:'2.5rem', marginBottom:'1rem' }}>✦</div>
                 <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:'1.25rem', color:'#fff' }}>¡Mensaje enviado!</div>
-                <div style={{ color:'#94a3b8', fontSize:'.85rem', marginTop:'.4rem' }}>Te respondo en menos de 24 horas. Gracias por escribir.</div>
+                <div style={{ color:'#94a3b8', fontSize:'.85rem', marginTop:'.4rem' }}>Te respondo pronto. Gracias por escribir.</div>
                 <button onClick={() => setSent(false)} style={{ marginTop:'1.5rem', background:'none', border:'none', cursor:'pointer', fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'#8b5cf6', textDecoration:'underline', textUnderlineOffset:4 }}>
                   Enviar otro mensaje
                 </button>

@@ -10,10 +10,6 @@ export default function Footer() {
         <p style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-faint)', letterSpacing:'.1em' }}>
           © {new Date().getFullYear()} — Diseñado & desarrollado con 💜 por Sayola
         </p>
-        <div style={{ display:'flex', alignItems:'center', gap:'.4rem', fontFamily:"'JetBrains Mono',monospace", fontSize:'.7rem', color:'var(--txt-faint)' }}>
-          <span className="anim-pulse" aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />
-          v2.0.0
-        </div>
       </div>
     </footer>
   )

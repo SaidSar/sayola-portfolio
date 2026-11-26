@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { scrollToId } from '../utils/scroll'
+import { GITHUB_URL, LINKEDIN_URL } from '../config/site'
+import { GitHubIcon, LinkedInIcon } from './Icons'
 
 const ROLES = ['Software Engineer', 'Game Developer', 'Frontend Architect', 'React Native Dev']
 const TECH = ['React', 'React Native', 'Azure', 'Godot Engine', 'Microsoft.NET', 'Tailwind CSS']
 const SOCIALS = [
-  { label: 'GH', href: 'https://github.com' },
-  { label: 'LI', href: 'https://linkedin.com' },
-  { label: 'TW', href: 'https://twitter.com' },
+  { label: 'GitHub',   href: GITHUB_URL,   Icon: GitHubIcon },
+  { label: 'LinkedIn', href: LINKEDIN_URL, Icon: LinkedInIcon },
 ]
 
 const S = {
@@ -86,7 +87,7 @@ export default function Hero() {
               </div>
               <div style={S.statusBadge}>
                 <span className="anim-pulse" aria-hidden="true" style={S.statusDot} />
-                <span style={S.statusTxt}>Open to work</span>
+                <span style={S.statusTxt}>Disponible para prácticas</span>
               </div>
             </div>
           </div>
@@ -95,7 +96,7 @@ export default function Hero() {
         <div style={S.col}>
           <div className="fade-up d1" style={S.eyebrow}>
             <div style={S.eyebrowLine} />
-            <span style={S.eyebrowTxt}>Portfolio - 2026</span>
+            <span style={S.eyebrowTxt}>Portafolio — 2026</span>
           </div>
 
           <div className="fade-up d2">
@@ -129,7 +130,9 @@ export default function Hero() {
 
           <div className="fade-up d7" style={S.socials}>
             {SOCIALS.map(s => (
-              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="social-btn">{s.label}</a>
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label={s.label}>
+                <s.Icon size={16} />
+              </a>
             ))}
           </div>
         </div>

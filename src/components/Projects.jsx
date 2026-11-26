@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import useReveal from '../hooks/useReveal'
 import SectionHeader from './SectionHeader'
 import { GitHubIcon } from './Icons'
+import { GITHUB_URL } from '../config/site'
 
 const PROJECTS = [
   {
@@ -10,7 +11,7 @@ const PROJECTS = [
     sub: 'Sistema de Gestión de Biblioteca',
     desc: 'Plataforma web full-stack para gestión integral de biblioteca. React/Vite en el frontend, ASP.NET Core en el backend, desplegada en producción.',
     stack: ['React', 'Vite', 'ASP.NET Core', 'SQL Server', 'Vercel'],
-    status: 'Live',
+    status: 'live',
     accent: '#8b5cf6',
     github: 'https://github.com/SaidSar/gremio-de-la-lectura',
     demo: 'https://gremio-de-la-lectura.vercel.app',
@@ -22,11 +23,12 @@ const PROJECTS = [
     sub: 'Videojuego de Horror Mobile',
     desc: 'Juego de terror 3D en primera persona para Android, desarrollado en solitario. Audio reactivo, iluminación dinámica y mecánicas psicológicas inmersivas.',
     stack: ['Godot 4.6', 'GDScript', 'Blender', 'Android'],
-    status: 'In Dev',
+    status: 'dev',
     accent: '#22d3ee',
-    github: 'https://github.com/SaidSar',
+    github: 'https://github.com/Divinepath6/Juego_terror',
+    githubLabel: 'GitHub · Divinepath6',
     demo: null,
-    repo: null,
+    repo: 'Divinepath6/Juego_terror',
   },
   {
     id: '03',
@@ -34,31 +36,30 @@ const PROJECTS = [
     sub: 'Habit Tracker — React Native',
     desc: 'App móvil de seguimiento de hábitos con modo oscuro/claro, auth local con AsyncStorage y reset diario automático.',
     stack: ['React Native', 'Expo SDK 54', 'Expo Router', 'AsyncStorage'],
-    status: 'In Dev',
+    status: 'dev',
     accent: '#8b5cf6',
-    github: 'https://github.com/SaidSar',
+    github: 'https://github.com/SaidSar/sayola-days',
     demo: null,
-    repo: null,
+    repo: 'SaidSar/sayola-days',
   },
   {
     id: '04',
     title: 'Luis Coffee Break POS',
     sub: 'Sistema Punto de Venta',
-    desc: 'POS completo para cafetería local en Los Mochis. Inventario con IA (Anthropic Vision), reportes Excel, roles de usuario y gestión de mesas en tiempo real.',
-    stack: ['React', 'Node.js', 'Prisma', 'Supabase', 'Socket.io'],
-    status: 'In Dev',
+    desc: 'POS para cafetería con inventario, ventas y reportes en Excel. Incluye escaneo de menús con IA (Anthropic Vision).',
+    stack: ['React', 'TypeScript', 'Tailwind', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Socket.io'],
+    status: 'dev',
     accent: '#22d3ee',
-    github: 'https://github.com/SaidSar',
+    github: 'https://github.com/SaidSar/luis-coffee-pos',
     demo: null,
-    repo: null,
+    repo: 'SaidSar/luis-coffee-pos',
   },
 ]
 
-const BADGE_STYLES = {
-  'Live':   { border:'1px solid rgba(34,211,238,.4)', color:'#22d3ee', background:'rgba(34,211,238,.05)' },
-  'In Dev': { border:'1px solid rgba(251,191,36,.4)', color:'#fbbf24', background:'rgba(251,191,36,.05)' },
+const STATUS = {
+  live: { label: 'En producción', style: { border:'1px solid rgba(34,211,238,.4)', color:'#22d3ee', background:'rgba(34,211,238,.05)' } },
+  dev:  { label: 'En desarrollo', style: { border:'1px solid rgba(251,191,36,.4)', color:'#fbbf24', background:'rgba(251,191,36,.05)' } },
 }
-const BADGE_FALLBACK = { border:'1px solid #334155', color:'#64748b', background:'rgba(100,116,139,.05)' }
 
 const mono = { fontFamily:"'JetBrains Mono',monospace" }
 
@@ -85,7 +86,7 @@ function useGitHubStats(repo) {
 function Card({ p, delay }) {
   const [ref, visible] = useReveal(0.15)
   const gh = useGitHubStats(p.repo)
-  const badgeStyle = BADGE_STYLES[p.status] ?? BADGE_FALLBACK
+  const status = STATUS[p.status]
 
   return (
     <div ref={ref} className={`reveal${visible ? ' in' : ''}`} style={{ transitionDelay:`${delay}ms` }}>
@@ -94,13 +95,13 @@ function Card({ p, delay }) {
         <div style={{ padding:'1.75rem', display:'flex', flexDirection:'column', gap:'1.2rem' }}>
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
             <div>
-              <div style={{ ...mono, fontSize:'.7rem', color:'var(--txt-faint)', letterSpacing:'.2em', textTransform:'uppercase' }}>Project {p.id}</div>
+              <div style={{ ...mono, fontSize:'.7rem', color:'var(--txt-faint)', letterSpacing:'.2em', textTransform:'uppercase' }}>Proyecto {p.id}</div>
               <h3 className="ctitle">{p.title}</h3>
               <div style={{ fontSize:'.7rem', color:'var(--txt-dim)', marginTop:'.1rem' }}>{p.sub}</div>
             </div>
-            <span style={{ ...badgeStyle, ...mono, flexShrink:0, marginLeft:'.5rem', padding:'.25rem .7rem', borderRadius:999, fontSize:'.7rem', letterSpacing:'.1em', textTransform:'uppercase', display:'flex', alignItems:'center', gap:'.35rem' }}>
-              {p.status === 'Live' && <span className="anim-pulse" aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />}
-              {p.status}
+            <span style={{ ...status.style, ...mono, flexShrink:0, marginLeft:'.5rem', padding:'.25rem .7rem', borderRadius:999, fontSize:'.7rem', letterSpacing:'.1em', textTransform:'uppercase', display:'flex', alignItems:'center', gap:'.35rem' }}>
+              {p.status === 'live' && <span className="anim-pulse" aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#22d3ee', display:'inline-block' }} />}
+              {status.label}
             </span>
           </div>
           <p style={{ color:'#94a3b8', fontSize:'.82rem', lineHeight:1.7, fontWeight:300 }}>{p.desc}</p>
@@ -112,7 +113,7 @@ function Card({ p, delay }) {
           <div style={{ display:'flex', alignItems:'center', flexWrap:'wrap', gap:'.75rem', paddingTop:'.75rem', borderTop:'1px solid #1e1e2a' }}>
             <a href={p.github} target="_blank" rel="noopener noreferrer" className="card-link">
               <GitHubIcon />
-              GitHub
+              {p.githubLabel ?? 'GitHub'}
             </a>
             {gh && (
               <div style={{ display:'flex', gap:'.75rem', marginLeft:'auto' }}>
@@ -138,7 +139,7 @@ export default function Projects() {
           label="Proyectos"
           title="Lo que he"
           highlight="construido"
-          desc="Proyectos reales — académicos, personales y para clientes."
+          desc="Proyectos académicos, personales y de portafolio."
         />
 
         <div className="proj-grid">
@@ -146,7 +147,7 @@ export default function Projects() {
         </div>
 
         <div style={{ marginTop:'3rem', textAlign:'center' }}>
-          <a href="https://github.com/SaidSar" target="_blank" rel="noopener noreferrer" className="gh-cta">
+          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="gh-cta">
             <GitHubIcon />
             Ver todos los repositorios en GitHub
           </a>
